@@ -44,6 +44,9 @@ app.use(
   cors({
     origin: config.FRONTEND_ORIGIN,
     credentials: true,
+     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Set-Cookie']
   })
 );
 
@@ -60,6 +63,7 @@ app.get(
   })
 );
 
+// console.log()
 app.use(`${BASE_PATH}/auth`, authRoutes);
 app.use(`${BASE_PATH}/user`, isAuthenticated, userRoutes);
 app.use(`${BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
