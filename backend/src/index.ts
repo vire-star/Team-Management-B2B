@@ -32,12 +32,11 @@ app.use(
     name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "production",
+    secure: config.NODE_ENV === "production", // ✅ Sahi hai
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: config.NODE_ENV === "production" ? "none" : "lax", // ← Fix this 🔥
   })
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
 
