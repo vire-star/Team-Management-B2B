@@ -29,9 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: config.FRONTEND_ORIGIN,
-    credentials: true,
-    
+    origin: [config.FRONTEND_ORIGIN], // ✅ exact URL e.g. "https://team-management-b2-b-ecp3.vercel.app"
+    credentials: true, // ✅ allows cookies
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 console.log('hello')
@@ -40,9 +41,9 @@ app.use(
     name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "production", // ✅ Sahi hai
-    httpOnly: true,
-    sameSite: "none", // ← Fix this 🔥
+    secure: true,          // ✅ Render is HTTPS → must be true
+    httpOnly: true,        // ✅ prevent JS access
+    sameSite: "none",      // ✅ allow cross-site cookies (Vercel + Render)
   })
 );
 app.use(passport.initialize());
