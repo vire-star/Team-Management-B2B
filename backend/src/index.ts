@@ -29,8 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: [config.FRONTEND_ORIGIN], // ✅ exact URL e.g. "https://team-management-b2-b-ecp3.vercel.app"
-    credentials: true, // ✅ allows cookies
+    origin: ["https://team-management-b2-b-ecp3.vercel.app"],
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
