@@ -36,7 +36,7 @@ app.use(
   exposedHeaders: ['Set-Cookie']
   })
 );
-
+console.log('hello')
 app.use(
   session({
     name: "session",
