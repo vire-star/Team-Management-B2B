@@ -31,9 +31,7 @@ app.use(
   cors({
     origin: config.FRONTEND_ORIGIN,
     credentials: true,
-     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Set-Cookie']
+    
   })
 );
 console.log('hello')
@@ -44,7 +42,7 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000,
     secure: config.NODE_ENV === "production", // ✅ Sahi hai
     httpOnly: true,
-    sameSite: config.NODE_ENV === "production" ? "none" : "lax", // ← Fix this 🔥
+    sameSite: "none", // ← Fix this 🔥
   })
 );
 app.use(passport.initialize());
