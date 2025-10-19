@@ -28,26 +28,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-  cors({
-    origin: ["https://team-management-b2-b-ecp3.vercel.app"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-console.log('hello')
-app.use(
   session({
     name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: true,          // ✅ Render is HTTPS → must be true
-    httpOnly: true,        // ✅ prevent JS access
-    sameSite: "none",      // ✅ allow cross-site cookies (Vercel + Render)
+    secure: true,
+    httpOnly: true,
+    sameSite: "lax",
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(
+  cors({
+    origin: config.FRONTEND_ORIGIN,
+    credentials: true,
+  })
+);
 
 app.get(
   `/`,
@@ -62,7 +61,6 @@ app.get(
   })
 );
 
-// console.log()
 app.use(`${BASE_PATH}/auth`, authRoutes);
 app.use(`${BASE_PATH}/user`, isAuthenticated, userRoutes);
 app.use(`${BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
